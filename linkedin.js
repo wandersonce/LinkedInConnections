@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const { scrollPageToBottom } = require('puppeteer-autoscroll-down');
 
 const BASE_URL = 'https://www.linkedin.com/';
 const NET_URL = 'https://www.linkedin.com/mynetwork/';
@@ -9,12 +8,10 @@ const linkedin = {
     page: null,
 
     // Initialinzing the browser and going to linkedin home page
-
     initialize: async () => {
         linkedin.browser = await puppeteer.launch({
             headless: false
         });
-
 
         linkedin.page = await linkedin.browser.newPage();
 
