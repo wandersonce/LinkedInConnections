@@ -47,7 +47,7 @@ const linkedin = {
 
         await linkedin.page.waitFor(10000);
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 5; i++) {
 
             await linkedin.page.evaluate(_ => {
                 window.scrollBy(-100, window.innerHeight);
@@ -58,7 +58,15 @@ const linkedin = {
 
         await linkedin.page.waitFor(10000);
 
-        let person = await linkedin.page.$$('div[data-launchpad-scroll-anchor="pymk"] > section > section > ul > li');
+        let person = await linkedin.page.$$('div[data-launchpad-scroll-anchor="pymk"] > section > section > ul > li > div > section > div[class="discover-entity-type-card__bottom-container"] > footer > button');
+
+        for (let x = 0; x < person.length; x++) {
+            let eachPerson = person[x];
+
+            /* Click on the post */
+            await eachPerson.click();
+            await linkedin.page.waitFor(3000);
+        }
 
         debugger;
     }
