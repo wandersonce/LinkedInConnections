@@ -35,10 +35,19 @@ const linkedin = {
         let loginButton = await linkedin.page.$x('//button[contains(text(), "Sign in")]');
         await loginButton[0].click();
 
-        await linkedin.page.waitFor(10000);
+        await linkedin.page.waitFor(7000);
 
         //check if it is connected 
         await linkedin.page.waitFor('div[data-control-name="identity_welcome_message"]');
+
+        //check if aside messaging is open
+        let asideMsg = await linkedin.page.waitFor('aside > div[class="msg-overlay-list-bubble  msg-overlay-list-bubble--expanded mh4"]');
+
+        if (asideMsg) { // If it is opened it will close
+            let headerAside = await linkedin.page.waitFor('aside > div[class="msg-overlay-list-bubble  msg-overlay-list-bubble--expanded mh4"] > header');
+            await headerAside.click();
+        }
+
     },
 
     // Connect to people
@@ -47,7 +56,7 @@ const linkedin = {
 
         await linkedin.page.waitFor(10000);
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 9; i++) { //Here change how many time it will scrolldown, it will change the total of the users to connect.
 
             await linkedin.page.evaluate(_ => {
                 window.scrollBy(-100, window.innerHeight);
@@ -56,8 +65,9 @@ const linkedin = {
             await linkedin.page.waitFor(3000);
         }
 
-        await linkedin.page.waitFor(10000);
+        await linkedin.page.waitFor(7000);
 
+        //Searching for the section "More Suggestions for you" 
         let person = await linkedin.page.$$('div[data-launchpad-scroll-anchor="pymk"] > section > section > ul > li > div > section > div[class="discover-entity-type-card__bottom-container"] > footer > button');
 
         for (let x = 0; x < person.length; x++) {
@@ -65,7 +75,7 @@ const linkedin = {
 
             /* Click on the post */
             await eachPerson.click();
-            await linkedin.page.waitFor(3000);
+            await linkedin.page.waitFor(2000);
         }
 
         debugger;
