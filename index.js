@@ -3,7 +3,7 @@ const lkin = require('./linkedin');
 (async () => {
     await lkin.initialize();
 
-    await lkin.login('yourUsername', 'yourPassword');
+    await lkin.login('youUsername', 'yourPassword');
 
     await lkin.connectionProcess();
 

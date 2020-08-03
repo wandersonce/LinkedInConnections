@@ -56,7 +56,7 @@ const linkedin = {
 
         await linkedin.page.waitFor(5000);
 
-        for (let i = 0; i < 10; i++) { //Here change how many time it will scrolldown, it will change the total of the users to connect.
+        for (let i = 0; i < 5; i++) { //Here change how many time it will scrolldown, it will change the total of the users to connect.
 
             await linkedin.page.evaluate(_ => {
                 window.scrollBy(0, window.innerHeight);
@@ -75,10 +75,10 @@ const linkedin = {
 
             /* Click on the post */
             await eachPerson.click();
-            let modalFullInv = await linkedin.page.$$('div[aria-labelledby="ip-fuse-limit-alert__header"]');
-            if (modalFullInv) {
-                break;
-            }
+            // let modalFullInv = await linkedin.page.$$('div[aria-labelledby="ip-fuse-limit-alert__header"]');
+            // if (modalFullInv) {
+            //     break;
+            // }
             await linkedin.page.waitFor(3000);
         }
 
