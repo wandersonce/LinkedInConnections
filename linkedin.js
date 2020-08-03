@@ -54,12 +54,12 @@ const linkedin = {
     connectionProcess: async () => {
         await linkedin.page.goto(NET_URL, { waitUntil: 'networkidle2' });
 
-        await linkedin.page.waitFor(10000);
+        await linkedin.page.waitFor(5000);
 
-        for (let i = 0; i < 9; i++) { //Here change how many time it will scrolldown, it will change the total of the users to connect.
+        for (let i = 0; i < 10; i++) { //Here change how many time it will scrolldown, it will change the total of the users to connect.
 
             await linkedin.page.evaluate(_ => {
-                window.scrollBy(-100, window.innerHeight);
+                window.scrollBy(0, window.innerHeight);
             });
 
             await linkedin.page.waitFor(3000);
@@ -75,8 +75,15 @@ const linkedin = {
 
             /* Click on the post */
             await eachPerson.click();
-            await linkedin.page.waitFor(2000);
+            let modalFullInv = await linkedin.page.$$('div[aria-labelledby="ip-fuse-limit-alert__header"]');
+            if (modalFullInv) {
+                break;
+            }
+            await linkedin.page.waitFor(3000);
         }
+
+        await linkedin.page.close();
+        await linkedin.browser.close();
 
         debugger;
     }
